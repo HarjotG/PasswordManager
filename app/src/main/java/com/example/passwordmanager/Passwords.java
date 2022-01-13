@@ -3,17 +3,27 @@ package com.example.passwordmanager;
 import static com.example.passwordmanager.DB.DATABASE_NAME;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class Passwords extends AppCompatActivity {
-    private DB db;
+import java.util.ArrayList;
 
+public class Passwords extends AppCompatActivity  {
+    public static final String ACTIVITY_RESULT = "ACTIVITY_RESULT";
+    public static final int LAUNCH_SECOND_ACTIVITY = 1;
+
+    private DB db;
+    private ArrayList<Account> accounts;
+    private AccountsAdapter accountAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,9 +36,18 @@ public class Passwords extends AppCompatActivity {
             }
         });
 
-        Passwords.this.deleteDatabase(DATABASE_NAME);
-        db = new DB(Passwords.this);
+        // DELETE DATABASE EACH OPEN FOR TESTING
+        //Passwords.this.deleteDatabase(DATABASE_NAME);
+        DB db = new DB(Passwords.this);
+        accounts = db.getAccounts();
+
         Log.d("password", "Password view created");
+
+        RecyclerView accountView = (RecyclerView) findViewById(R.id.account_view);
+        accountAdapter = new AccountsAdapter(accounts);
+        accountView.setAdapter(accountAdapter);
+        accountView.setLayoutManager(new LinearLayoutManager(this));
+
     }
     @Override
     protected void onDestroy() {
@@ -37,27 +56,27 @@ public class Passwords extends AppCompatActivity {
     }
 
     public void createAccount(View view) {
-        Account account = new Account("1", "Harjot", "pass123", "harjot123g@gmail.com", "test.com", "General");
-        long id = db.createAccount(account);
-        if(id == -1) {
-            Log.e("PASS_ACCOUNT1", "ERROR in adding new account to database");
-        }
-        Account[] accounts = db.getAccounts();
-        for(int i = 0; i < accounts.length; i++) {
-            Log.d("PASS_ACCOUNT2", accounts[i].toString());
-        }
+        Intent intent = new Intent(this, CreateAccount.class);
+        startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
+    }
 
-        db.updateAccount(accounts[0], new Account("12321", "john", "passs12334", "", "", "General"));
-        accounts = db.getAccounts();
-        for(int i = 0; i < accounts.length; i++) {
-            Log.d("PASS_ACCOUNT3", accounts[i].toString());
-        }
-        if(accounts.length > 3) {
-            db.deleteAccount(accounts[1]);
-            accounts = db.getAccounts();
-            for(int i = 0; i < accounts.length; i++) {
-                Log.d("PASS_ACCOUNT4", accounts[i].toString());
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == LAUNCH_SECOND_ACTIVITY) {
+            if(resultCode == Activity.RESULT_OK){
+                String[] a = data.getStringArrayExtra(ACTIVITY_RESULT);
+                // I know this is ugly, but it is much easier than other methods
+                Account newacc = new Account(a[0], a[1], a[2], a[3], a[4], a[5]);
+                accounts.add(newacc);
+                for(int i = 0; i < accounts.size(); i++) {
+                    Log.d("PASSWORDS_ADDED", accounts.get(i).toString());
+                }
+                Log.d("PASSWORDS_ADDED", String.valueOf(accounts.size()));
+                accountAdapter.notifyItemInserted(accounts.size());
             }
+
         }
     }
 

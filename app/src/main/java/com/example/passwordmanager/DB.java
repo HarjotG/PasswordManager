@@ -10,6 +10,8 @@ import android.util.Log;
 
 import static java.security.AccessController.getContext;
 
+import java.util.ArrayList;
+
 public class DB implements BaseColumns {
     private DBhelper dbHelper;
 
@@ -39,18 +41,17 @@ public class DB implements BaseColumns {
         values.put("Site", account.site);
         values.put("Tag", account.tag);
         return db.insert("accounts", null, values);
-
     }
 
     // return all accounts in the database ordered in descending order by TAG
-    public Account[] getAccounts() {
+    public ArrayList<Account> getAccounts() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query(SQL_TABLE_NAME, null, null, null, null, null, "Tag DESC", null);
-        Account[] accounts = new Account[cursor.getCount()];
+        ArrayList<Account> accounts = new ArrayList<>();
         int i = 0;
         while(cursor.moveToNext()) {
-            accounts[i] = new Account(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5));
-            Log.d("ACCOUNT_DB", accounts[i].toString());
+            accounts.add( new Account(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5)));
+            Log.d("ACCOUNT_DB", accounts.get(i).toString());
             i++;
         }
 

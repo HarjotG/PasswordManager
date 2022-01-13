@@ -10,10 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PasswordManager">
         <activity
+            android:name=".AccountView"
+            android:exported="false" />
+        <activity
+            android:name=".CreateAccount"
+            android:exported="false"
+            android:parentActivityName=".Passwords" />
+        <activity
             android:name=".Passwords"
             android:exported="false"
-            android:parentActivityName=".MainActivity"
-            />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

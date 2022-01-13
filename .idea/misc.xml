@@ -3,8 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Harjot/AndroidStudioProjects/PasswordManager/app/src/main/res/layout/activity_account_view.xml" value="0.5546875" />
+        <entry key="..\:/Users/Harjot/AndroidStudioProjects/PasswordManager/app/src/main/res/layout/activity_create_account.xml" value="0.5546875" />
         <entry key="..\:/Users/Harjot/AndroidStudioProjects/PasswordManager/app/src/main/res/layout/activity_main.xml" value="0.5546875" />
         <entry key="..\:/Users/Harjot/AndroidStudioProjects/PasswordManager/app/src/main/res/layout/activity_passwords.xml" value="0.4713541666666667" />
+        <entry key="..\:/Users/Harjot/AndroidStudioProjects/PasswordManager/app/src/main/res/layout/item_account.xml" value="0.5546875" />
+        <entry key="..\:/Users/Harjot/AndroidStudioProjects/PasswordManager/app/src/main/res/layout/item_custom_row.xml" value="0.5546875" />
+        <entry key="..\:/Users/Harjot/AndroidStudioProjects/PasswordManager/app/src/main/res/menu/account_menu.xml" value="0.3802083333333333" />
       </map>
     </option>
   </component>

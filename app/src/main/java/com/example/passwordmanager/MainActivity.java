@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     @RequiresApi(api = Build.VERSION_CODES.R)
     public void login(View view) {
         // prompt the user to authenticate
@@ -142,6 +141,4 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Passwords.class);
         startActivity(intent);
     }
-
-
 }

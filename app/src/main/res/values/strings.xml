@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">PasswordManager</string>
-    <string name="password_hint">Enter Password</string>
     <string name="button_login">Login</string>
     <string name="button_createAccount">Create Account</string>
+    <string name="text_username">Username</string>
+    <string name="text_password">Password (Required)</string>
+    <string name="text_email">Email</string>
+    <string name="text_site">Site</string>
+    <string name="text_tag">Tag (Empty for General)</string>
+    <string name="account_update">Update</string>
+    <string name="account_delete">Delete</string>
 </resources>
