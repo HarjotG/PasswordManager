@@ -6,9 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-import android.util.Log;
 
-import static java.security.AccessController.getContext;
 
 import java.util.ArrayList;
 
@@ -51,7 +49,6 @@ public class DB implements BaseColumns {
         int i = 0;
         while(cursor.moveToNext()) {
             accounts.add( new Account(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5)));
-            Log.d("ACCOUNT_DB", accounts.get(i).toString());
             i++;
         }
 
@@ -90,7 +87,6 @@ public class DB implements BaseColumns {
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL("CREATE TABLE IF NOT EXISTS "  + SQL_TABLE_NAME + " ( " + _ID + " INTEGER PRIMARY KEY, Username TEXT, Password TEXT, Email TEXT, Site TEXT, Tag TEXT)");
-            Log.d("DB_CREATE", "onCreate called");
         }
 
         @Override

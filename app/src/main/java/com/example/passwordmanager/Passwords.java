@@ -1,6 +1,5 @@
 package com.example.passwordmanager;
 
-import static com.example.passwordmanager.DB.DATABASE_NAME;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;

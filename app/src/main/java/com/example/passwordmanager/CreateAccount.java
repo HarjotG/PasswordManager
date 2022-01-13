@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.security.keystore.UserNotAuthenticatedException;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,7 +51,6 @@ public class CreateAccount extends AppCompatActivity {
 
         // check if password is given
         if(password.length() == 0) {
-            Log.e("CREATE_ACCOUNT", "Password not provided");
             Toast.makeText(getApplicationContext(), "Password must be provided", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -75,12 +73,10 @@ public class CreateAccount extends AppCompatActivity {
         Account account = new Account("", username, cipherpass, email, site, tag);
         long id = db.createAccount(account);
         if(id == -1) {
-            Log.e("CREATE_ACCOUNT", "Database error");
             Toast.makeText(getApplicationContext(), "Database error", Toast.LENGTH_SHORT).show();
             return;
         }
         account.id = String.valueOf(id);
-        Log.d("CREATE_ACCOUNT", "Account created " + account.toString());
         Toast.makeText(getApplicationContext(), "Account created", Toast.LENGTH_SHORT).show();
         Intent returnIntent = new Intent();
         returnIntent.putExtra(ACTIVITY_RESULT, new String[]{account.id, account.username, account.password, account.email, account.site, account.tag});

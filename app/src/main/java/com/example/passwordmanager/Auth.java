@@ -1,20 +1,16 @@
 package com.example.passwordmanager;
 
-import static android.content.Context.KEYGUARD_SERVICE;
 
-import android.app.KeyguardManager;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.security.keystore.UserNotAuthenticatedException;
-import android.util.Log;
+
 
 import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
+
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -25,8 +21,7 @@ import java.security.NoSuchProviderException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -118,9 +113,7 @@ public class Auth {
             while(plaintext.length() % 16 != 0) {
                 plaintext += "\u0020";
             }
-            Log.d("ENCRYPT", String.valueOf(plaintext.getBytes(StandardCharsets.ISO_8859_1).length));
             byte[] iv = cipher.getIV();
-            Log.d("AUTH", String.valueOf(iv.length));
             byte[] ciphertext = cipher.doFinal(plaintext.getBytes(StandardCharsets.ISO_8859_1));
             ArrayList<Byte> cipherarray = new ArrayList<>();
             for(int i = 0; i < ciphertext.length; i++) cipherarray.add(ciphertext[i]);
@@ -139,10 +132,8 @@ public class Auth {
             e.printStackTrace();
             if(e instanceof UserNotAuthenticatedException) throw new UserNotAuthenticatedException();
         } catch (BadPaddingException e) {
-            Log.e("AUTH", "Bad padding");
             e.printStackTrace();
         } catch (IllegalBlockSizeException e) {
-            Log.e("AUTH", "illegal block size");
             e.printStackTrace();
         }
         return null;
@@ -170,10 +161,8 @@ public class Auth {
             e.printStackTrace();
             if(e instanceof UserNotAuthenticatedException) throw new UserNotAuthenticatedException();
         } catch (BadPaddingException e) {
-            Log.e("AUTH", "Bad padding");
             e.printStackTrace();
         } catch (IllegalBlockSizeException e) {
-            Log.e("AUTH", "illegal block size");
             e.printStackTrace();
         } catch (InvalidAlgorithmParameterException e) {
             e.printStackTrace();
