@@ -119,7 +119,6 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
         public void openAccount(View view, Context context) {
             int position = getAdapterPosition();
             Account account = accounts.get(position);
-            Toast.makeText(context, account.toString(), Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(context, AccountView.class);
             intent.putExtra(ACCOUNT_ID_EXTRA, account.id);
